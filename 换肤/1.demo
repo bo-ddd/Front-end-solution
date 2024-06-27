@@ -1,0 +1,63 @@
+```
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      --primary-color: yellow;
+      --dark-color: #000;
+      --bg-color: var(--primary-color);
+    }
+
+    div {
+      background-color: var(--bg-color);
+    }
+  </style>
+</head>
+<body>
+  <div>hello world</div>
+  <button>换肤</button>
+</body>
+<script>
+  class Theme {
+    constructor(){
+      this.theme = this._theme = 'white';
+    }
+
+    get theme() {
+      return this._theme;
+    }
+
+    set theme(value){
+      this._theme = value;
+      this.init();
+    }
+
+    init(){
+      if(this.theme == 'white') {
+        this.setProperty('--bg-color', 'var(--primary-color)');
+      }else if(this.theme == 'dark') {
+        this.setProperty('--bg-color', 'var(--dark-color)');
+      }
+    }
+
+    setProperty(prop, value) {
+      document.documentElement.style.setProperty(prop, value);
+    }
+
+    tab(){
+      this.theme = this.theme === 'white' ? 'dark' : 'white';
+    }
+  }
+
+  const theme = new Theme();
+  
+  document.querySelector('button').onclick = function() {
+    theme.tab()
+  }
+</script>
+</html>
+```
